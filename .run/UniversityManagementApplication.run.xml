@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+	<configuration default="false" name="UniversityManagementApplication" type="Application" factoryName="Application">
+		<option name="MAIN_CLASS_NAME" value="com.university.university_management.UniversityManagementApplication" />
+		<module name="university-management" />
+		<method v="2">
+			<option name="Make" enabled="true" />
+		</method>
+	</configuration>
+</component>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title th:text="${roleName + ' records - University Management'}">Records | University Management</title>
+	<link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<main class="panel records-panel">
+	<p><a th:href="@{/}">Back to home</a></p>
+	<h1 th:text="${roleName + ' records'}">Records</h1>
+	<p class="success" th:if="${successMessage}" th:text="${successMessage}"></p>
+	<p class="error" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+	<p th:text="${records.size() + ' record(s)'}">0 records</p>
+	<div class="table-container">
+		<table>
+			<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col" th:if="${role != T(com.university.university_management.model.UserRole).ADMIN}">Name</th>
+				<th scope="col">Email</th>
+				<th scope="col" th:if="${role != T(com.university.university_management.model.UserRole).ADMIN}">Department</th>
+				<th scope="col" th:if="${role == T(com.university.university_management.model.UserRole).STUDENT}">Roll</th>
+				<th scope="col" th:if="${role == T(com.university.university_management.model.UserRole).STUDENT}">Batch</th>
+				<th scope="col" th:if="${role == T(com.university.university_management.model.UserRole).TEACHER}">Designation</th>
+				<th scope="col">Edit</th>
+				<th scope="col">Delete</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="record : ${records}">
+				<td th:text="${record.id()}">1</td>
+				<td th:if="${role != T(com.university.university_management.model.UserRole).ADMIN}"
+					th:text="${record.name()}">Name</td>
+				<td th:text="${record.email()}">email@example.com</td>
+				<td th:if="${role != T(com.university.university_management.model.UserRole).ADMIN}"
+					th:text="${record.department() != null ? record.department() : '-'}">Department</td>
+				<td th:if="${role == T(com.university.university_management.model.UserRole).STUDENT}"
+					th:text="${record.studentNumber() != null ? record.studentNumber() : '-'}">-</td>
+				<td th:if="${role == T(com.university.university_management.model.UserRole).STUDENT}"
+					th:text="${record.batch() != null ? record.batch() : '-'}">-</td>
+				<td th:if="${role == T(com.university.university_management.model.UserRole).TEACHER}"
+					th:text="${record.designation() != null ? record.designation() : '-'}">-</td>
+				<td><a class="button small-button" th:href="@{/records/{resource}/{id}/edit(resource=${resource},id=${record.id()})}">Edit</a></td>
+				<td>
+					<form method="post" th:action="@{/records/{resource}/{id}/delete(resource=${resource},id=${record.id()})}">
+						<button class="danger small-button" type="submit">Delete</button>
+					</form>
+				</td>
+			</tr>
+			<tr th:if="${records.isEmpty()}">
+				<td class="empty-state" colspan="8">No records found.</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</main>
+</body>
+</html>

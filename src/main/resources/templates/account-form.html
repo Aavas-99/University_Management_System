@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title th:text="${'Edit ' + roleName + ' - University Management'}">Edit account</title>
+	<link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<main class="panel narrow">
+	<p><a th:href="@{/records/{resource}(resource=${resource})}">Back to records</a></p>
+	<h1 th:text="${'Edit ' + roleName + ' account'}">Edit account</h1>
+	<p class="error" th:if="${formError}" th:text="${formError}"></p>
+	<form method="post" th:action="@{/records/{resource}/{id}/edit(resource=${resource},id=${recordId})}"
+		  th:object="${userRequest}">
+		<p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+		<div th:if="${role.name() != 'ADMIN'}">
+			<label for="name">Name</label>
+			<input id="name" type="text" maxlength="100" th:field="*{name}" required>
+			<label for="department">Department</label>
+			<input id="department" type="text" maxlength="100" th:field="*{department}" required>
+		</div>
+		<div th:if="${role.name() == 'STUDENT'}">
+			<label for="roll">Roll</label>
+			<input id="roll" type="text" maxlength="50" th:field="*{roll}" required>
+			<label for="batch">Batch</label>
+			<input id="batch" type="text" maxlength="50" th:field="*{batch}" required>
+		</div>
+		<div th:if="${role.name() == 'TEACHER'}">
+			<label for="designation">Designation</label>
+			<input id="designation" type="text" maxlength="100" th:field="*{designation}" required>
+		</div>
+		<label for="email">Email</label>
+		<input id="email" type="email" maxlength="150" th:field="*{email}" required>
+		<label for="password">New password</label>
+		<input id="password" type="password" minlength="8" maxlength="100"
+			   autocomplete="new-password" th:field="*{password}">
+		<p class="hint">Leave blank to keep the current password.</p>
+		<button type="submit">Save changes</button>
+	</form>
+</main>
+</body>
+</html>

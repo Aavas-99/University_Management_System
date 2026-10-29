@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sign in | University Management</title>
+	<link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<main class="panel narrow">
+	<h1>University Management</h1>
+	<p>Sign in with your university account.</p>
+	<p class="error" th:if="${loginFailed}">The email or password was not recognized.</p>
+	<p th:if="${param.registered}">Account created. You can now sign in.</p>
+	<form method="post" th:action="@{/api/auth/login}">
+		<label for="username">Email</label>
+		<input id="username" name="username" type="email" autocomplete="username" required>
+		<label for="password">Password</label>
+		<input id="password" name="password" type="password" autocomplete="current-password" required>
+		<button type="submit">Sign in</button>
+	</form>
+	<p>Need an account? <a th:href="@{/}">Choose a role to sign up</a></p>
+	<p><a th:href="@{/}">Back to home</a></p>
+</main>
+</body>
+</html>

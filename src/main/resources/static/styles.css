@@ -1,0 +1,126 @@
+:root {
+	color-scheme: light;
+	font-family: system-ui, sans-serif;
+	background: #f3f6fa;
+	color: #172033;
+}
+
+body {
+	margin: 0;
+	padding: 3rem 1rem;
+}
+
+.panel {
+	max-width: 46rem;
+	margin: 0 auto;
+	padding: 2rem;
+	border: 1px solid #d9e0ea;
+	border-radius: 0.75rem;
+	background: white;
+	box-shadow: 0 0.5rem 1.5rem #17203312;
+}
+
+.records-panel {
+	max-width: 72rem;
+}
+
+.table-container {
+	overflow-x: auto;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+th,
+td {
+	padding: 0.8rem;
+	border-bottom: 1px solid #d9e0ea;
+	white-space: nowrap;
+}
+
+th {
+	background: #f3f6fa;
+}
+
+.empty-state {
+	padding: 2rem;
+	color: #46566b;
+	text-align: center;
+}
+
+.small-button {
+	margin: 0;
+	padding: 0.4rem 0.65rem;
+}
+
+.danger {
+	background: #a32121;
+}
+
+.narrow {
+	max-width: 25rem;
+}
+
+.role-options {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+	gap: 1rem;
+}
+
+.role-option {
+	padding: 1rem;
+	border: 1px solid #d9e0ea;
+	border-radius: 0.5rem;
+}
+
+.role-option h2 {
+	margin-top: 0;
+}
+
+label,
+input {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+label {
+	margin: 1rem 0 0.4rem;
+	font-weight: 600;
+}
+
+input {
+	padding: 0.65rem;
+	border: 1px solid #aeb9c8;
+	border-radius: 0.35rem;
+}
+
+button,
+.button {
+	display: inline-block;
+	margin-top: 1.25rem;
+	padding: 0.65rem 1rem;
+	border: 0;
+	border-radius: 0.35rem;
+	background: #1456a0;
+	color: white;
+	font: inherit;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.secondary {
+	background: #46566b;
+}
+
+.hint,
+.success {
+	color: #176638;
+}
+
+.error {
+	color: #a32121;
+}

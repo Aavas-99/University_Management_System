@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>University Management</title>
+	<link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<main class="panel">
+	<h1>University Management</h1>
+	<p>A university account portal with role-based access and browsable record lists.</p>
+	<section sec:authorize="isAnonymous()">
+		<p>Choose your account type to sign in or create an account.</p>
+		<div class="role-options">
+			<section class="role-option">
+				<h2>Admin</h2>
+				<a class="button" th:href="@{/login}">Sign in</a>
+			</section>
+			<section class="role-option">
+				<h2>Teacher</h2>
+				<a class="button" th:href="@{/login}">Sign in</a>
+				<a class="button secondary" th:href="@{/signup(role='TEACHER')}">Sign up</a>
+			</section>
+			<section class="role-option">
+				<h2>Student</h2>
+				<a class="button" th:href="@{/login}">Sign in</a>
+				<a class="button secondary" th:href="@{/signup(role='STUDENT')}">Sign up</a>
+			</section>
+		</div>
+	</section>
+	<section sec:authorize="isAuthenticated()">
+		<p>Signed in as <strong sec:authentication="name">user@example.com</strong>.</p>
+		<h2>Records</h2>
+		<p sec:authorize="hasRole('ADMIN')">
+			<a th:href="@{/signup(role='ADMIN')}">Create an Admin account</a>
+		</p>
+		<ul>
+			<li sec:authorize="hasRole('ADMIN')"><a th:href="@{/records/admins}">View admins</a></li>
+			<li sec:authorize="hasAnyRole('ADMIN', 'TEACHER')">
+				<a th:href="@{/records/teachers}">View teachers</a>
+			</li>
+			<li><a th:href="@{/records/students}">View students</a></li>
+		</ul>
+		<form method="post" th:action="@{/api/auth/logout}">
+			<button class="secondary" type="submit">Sign out</button>
+		</form>
+	</section>
+</main>
+</body>
+</html>

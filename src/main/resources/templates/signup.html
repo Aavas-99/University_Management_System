@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title th:text="${'Sign up as ' + roleName + ' - University Management'}">Sign up | University Management</title>
+	<link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<main class="panel narrow">
+	<h1 th:text="${'Create a ' + roleName + ' account'}">Create an account</h1>
+	<div th:if="${role.name() == 'ADMIN' and !adminSignupAllowed}">
+		<p>Admin account creation is restricted to an authenticated Admin.</p>
+		<a class="button" th:href="@{/login}">Sign in as Admin</a>
+	</div>
+	<p class="error" th:if="${formError}" th:text="${formError}"></p>
+	<form method="post" th:action="@{/signup}" th:object="${userRequest}"
+		  th:if="${role.name() != 'ADMIN' or adminSignupAllowed}">
+		<input type="hidden" name="role" th:value="${role}">
+		<p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+		<div th:if="${role.name() != 'ADMIN'}">
+			<label for="name">Name</label>
+			<input id="name" type="text" maxlength="100" autocomplete="name" th:field="*{name}" required>
+		</div>
+		<label for="email">Email</label>
+		<input id="email" type="email" maxlength="150" autocomplete="email" th:field="*{email}" required>
+		<p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+		<label for="password">Password</label>
+		<input id="password" type="password" minlength="8" maxlength="100"
+			   autocomplete="new-password" th:field="*{password}" required>
+		<div th:if="${role.name() == 'STUDENT'}">
+			<label for="roll">Roll</label>
+			<input id="roll" type="text" maxlength="50" th:field="*{roll}" required>
+			<label for="department">Department</label>
+			<input id="department" type="text" maxlength="100" th:field="*{department}" required>
+			<label for="batch">Batch</label>
+			<input id="batch" type="text" maxlength="50" th:field="*{batch}" required>
+		</div>
+		<div th:if="${role.name() == 'TEACHER'}">
+			<label for="department">Department</label>
+			<input id="department" type="text" maxlength="100" th:field="*{department}" required>
+			<label for="designation">Designation</label>
+			<input id="designation" type="text" maxlength="100" th:field="*{designation}" required>
+		</div>
+		<button type="submit">Sign up</button>
+	</form>
+	<p><a th:href="@{/login}">Already have an account? Sign in</a></p>
+	<p><a th:href="@{/}">Back to home</a></p>
+</main>
+</body>
+</html>
