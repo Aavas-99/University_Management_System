@@ -2,6 +2,6 @@
 .idea
 .vscode
 .env
+.env.*
 .mvn/wrapper/maven-wrapper.jar
-target
 HELP.md

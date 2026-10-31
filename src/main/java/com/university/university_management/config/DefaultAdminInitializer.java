@@ -21,11 +21,11 @@ public class DefaultAdminInitializer {
 			@Value("${app.admin.password}") String password) {
 		return args -> {
 			if (email.isBlank() || password.isBlank() || password.length() < 8) {
-				throw new IllegalStateException("APP_ADMIN_EMAIL and an APP_ADMIN_PASSWORD of at least 8 characters are required");
+				throw new IllegalStateException("ADMIN_EMAIL and an ADMIN_PASSWORD of at least 8 characters are required");
 			}
 			repository.findByEmail(email).ifPresentOrElse(account -> {
 				if (account.getRole() != UserRole.ADMIN) {
-					throw new IllegalStateException("APP_ADMIN_EMAIL is already used by a non-admin account");
+					throw new IllegalStateException("ADMIN_EMAIL is already used by a non-admin account");
 				}
 			}, () -> repository.save(new UniversityUser(name, email, passwordEncoder.encode(password),
 					UserRole.ADMIN, null, null)));
